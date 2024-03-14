@@ -15,14 +15,14 @@
             var playGame = newFeedback.GuessFeedback(newSecretCode, newInput);
             var playedGames = 1;
 
-            while(playGame && playedGames < 10)
+            while (playGame && playedGames < 10)
             {
-                playedGames ++;
+                playedGames++;
                 newInput = newBrakeAttempt.UserInput();
                 playGame = newFeedback.GuessFeedback(newSecretCode, newInput);
             }
 
-            if(playedGames == 10)
+            if (playedGames >= 10)
             {
                 Console.WriteLine($"You've runned out of attempts. the code is: {string.Join( "", newSecretCode.ToArray())}");
                 Console.WriteLine("GAME OVER");

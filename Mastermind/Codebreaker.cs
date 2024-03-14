@@ -5,14 +5,14 @@ namespace Mastermind
         public List<int> UserInput()
         {
             Console.WriteLine("Enter a 4-digit code using numbers from 1 to 6, numbers may be repeated:");
-            string userInputStr = Console.ReadLine();
+            var userInputStr = Console.ReadLine() ?? string.Empty;
 
-            char[] userInputCharArr = userInputStr.ToCharArray();
-            List<int> userInputInt = new List<int> ();
+            var userInputCharArr = userInputStr.ToCharArray();
+            var userInputInt = new List<int> ();
 
-            for (int i = 0; i < userInputCharArr.Length; i++)
+            for (var i = 0; i < userInputCharArr.Length; i++)
             {
-                int c = (int)Char.GetNumericValue(userInputCharArr[i]);
+                var c = (int)Char.GetNumericValue(userInputCharArr[i]);
                 userInputInt.Add(c);
             }
 

@@ -4,10 +4,10 @@ namespace Mastermind
     {
         public bool GuessFeedback(List<int> code, List<int> input)
         {
-            bool playGame = true;
-            char correctVal = 'X';
-            char correctIndx = 'V';
-            char defaultCh = '.';
+            var playGame = true;
+            var correctVal = 'X';
+            var correctIndx = 'V';
+            var defaultCh = '.';
 
             var matchCounter = new MatchCounter();
             var matchingIntCode = matchCounter.CountMatches(code);
@@ -17,7 +17,6 @@ namespace Mastermind
             {
                 playGame = !playGame;
                 Console.WriteLine("Congratulations! You won!");
-                Console.WriteLine("GAME OVER");
             }
             else
             {
