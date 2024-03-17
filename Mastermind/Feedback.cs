@@ -9,9 +9,6 @@ public class Feedback
 
     public bool GuessFeedback(List<int> code, List<int> input)
     {
-        var matchingIntCode = _matchCounter.CountMatches(code);
-        var matchingIntInput = _matchCounter.CountMatches(input);
-
         if (input.ItemsToString() == code.ItemsToString())
         {
             Console.WriteLine("Congratulations! You won!");
@@ -19,7 +16,9 @@ public class Feedback
             return false;
         }
 
-        
+        var matchingIntCode = _matchCounter.CountMatches(code);
+        var matchingIntInput = _matchCounter.CountMatches(input);
+
         var feedback = new List<char>();
 
         for (var i = 0; i < input.Count; i++)
@@ -28,7 +27,7 @@ public class Feedback
             {
                 feedback.Add(CorrectIndx);
             }
-            else if (input[i] != code[i] && code.Contains(input[i]) && matchingIntCode[input[i]-1] >= matchingIntInput[input[i]-1])
+            else if (input[i] != code[i] && code.Contains(input[i]) && matchingIntCode[input[i] - 1] >= matchingIntInput[input[i] - 1])
             {
                 feedback.Add(CorrectVal);
             }
