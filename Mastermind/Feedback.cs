@@ -1,49 +1,54 @@
-namespace Mastermind
+namespace Mastermind;
+
+public class Feedback
 {
-    public class Feedback
+    private readonly MatchCounter _matchCounter = new();
+    private const char CorrectVal = 'X';
+    private const char CorrectIndx = 'V';
+    private const char DefaultCh = '.';
+
+    public bool GuessFeedback(List<int> code, List<int> input)
     {
-        public bool GuessFeedback(List<int> code, List<int> input)
+        var matchingIntCode = _matchCounter.CountMatches(code);
+        var matchingIntInput = _matchCounter.CountMatches(input);
+
+        if (input.ItemsToString() == code.ItemsToString())
         {
-            var playGame = true;
-            var correctVal = 'X';
-            var correctIndx = 'V';
-            var defaultCh = '.';
+            Console.WriteLine("Congratulations! You won!");
 
-            var matchCounter = new MatchCounter();
-            var matchingIntCode = matchCounter.CountMatches(code);
-            var matchingIntInput = matchCounter.CountMatches(input);
+            return false;
+        }
 
-            if (string.Join( "", input.ToArray()) == string.Join( "", code.ToArray()))
+        
+        var feedback = new List<char>();
+
+        for (var i = 0; i < input.Count; i++)
+        {
+            if (input[i] == code[i])
             {
-                playGame = !playGame;
-                Console.WriteLine("Congratulations! You won!");
+                feedback.Add(CorrectIndx);
+            }
+            else if (input[i] != code[i] && code.Contains(input[i]) && matchingIntCode[input[i]-1] >= matchingIntInput[input[i]-1])
+            {
+                feedback.Add(CorrectVal);
             }
             else
             {
-                List<char> feedback = new List<char>();
-
-                for (int i = 0; i < input.Count; i++)
-                {
-                    if (input[i] == code[i])
-                    {
-                        feedback.Add(correctIndx);
-                    }
-                    else if (input[i] != code[i] && code.Contains(input[i]) && matchingIntCode[input[i]-1] >= matchingIntInput[input[i]-1])
-                    {
-                        feedback.Add(correctVal);
-                    }
-                    else
-                    {
-                        feedback.Add(defaultCh);
-                    }
-                }
-
-                var shuffledFeedback = feedback.OrderBy( x => Random.Shared.Next()).ToList( );
-                var shuffledFeedbackStr = string.Join( "", shuffledFeedback.ToArray());
-
-                Console.WriteLine(shuffledFeedbackStr);
+                feedback.Add(DefaultCh);
             }
-            return playGame;
         }
+
+        var shuffledFeedback = ShuffleFeedback(feedback);
+
+        var shuffledFeedbackStr = shuffledFeedback.ItemsToString();
+
+        Console.WriteLine(shuffledFeedbackStr);
+
+        return true;
+    }
+
+    private List<char> ShuffleFeedback(List<char> items)
+    {
+        return items.OrderBy(x => Random.Shared.Next()).ToList();
     }
 }

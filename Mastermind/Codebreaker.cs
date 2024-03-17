@@ -1,22 +1,27 @@
-namespace Mastermind
+namespace Mastermind;
+
+public class Codebraker
 {
-    public class Codebraker
+    public List<int> GetUserInput()
     {
-        public List<int> UserInput()
-        {
-            Console.WriteLine("Enter a 4-digit code using numbers from 1 to 6, numbers may be repeated:");
-            var userInputStr = Console.ReadLine() ?? string.Empty;
+        Console.WriteLine($"Enter a {GameRules.CodeLength}-digit code using numbers from 1 to 6, numbers may be repeated:");
 
-            var userInputCharArr = userInputStr.ToCharArray();
-            var userInputInt = new List<int> ();
+        var userInputStr = Console.ReadLine() ?? string.Empty;
 
-            for (var i = 0; i < userInputCharArr.Length; i++)
+        userInputStr = userInputStr.Trim();
+        userInputStr = userInputStr.PadRight(GameRules.CodeLength, '_');
+        userInputStr = userInputStr[..GameRules.CodeLength];
+
+        return userInputStr
+            .Select(ch =>
             {
-                var c = (int)Char.GetNumericValue(userInputCharArr[i]);
-                userInputInt.Add(c);
-            }
+                if (int.TryParse(ch.ToString(), out var digit))
+                {
+                    return digit;
+                }
 
-            return userInputInt;
-        }
+                return -1;
+            })
+            .ToList();
     }
 }

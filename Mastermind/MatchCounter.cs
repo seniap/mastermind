@@ -1,13 +1,13 @@
-namespace Mastermind
+namespace Mastermind;
+
+public class MatchCounter 
 {
-   public class MatchCounter 
-   {
     public List<int> CountMatches(List<int> arr)
     {
         var matchCounter = new List<int>{0, 0, 0, 0, 0, 0};
-        foreach (int i in arr)
+        foreach (var digit in arr)
         {
-            switch (i)
+            switch (digit)
             {
                 case 1:
                     matchCounter[0] += 1;
@@ -31,5 +31,4 @@ namespace Mastermind
         }
         return matchCounter;
     }
-   }
 }
