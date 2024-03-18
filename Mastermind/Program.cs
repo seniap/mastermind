@@ -1,32 +1,32 @@
-﻿namespace Mastermind
+﻿namespace Mastermind;
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main()
+        Console.WriteLine("Welcome to Mastermind game!");
+        Console.WriteLine($"Try to break my code: {string.Empty.PadLeft(GameRules.CodeLength, 'X')}");
+
+        var newGame = new Codemaker();
+        var newBrakeAttempt = new Codebraker();
+        var newFeedback = new Feedback();
+        
+        var newSecretCode = newGame.SecretCode();
+
+        var playedGames = 0;
+        bool playGame;
+        do
         {
-            Console.WriteLine("Welcome to Mastermind game!");
-            Console.WriteLine("Try to break my code: XXXX");
+            var newInput = newBrakeAttempt.GetUserInput();
+            playGame = newFeedback.GuessFeedback(newSecretCode, newInput);
+            playedGames++;
+        }
+        while (playGame && playedGames <= GameRules.MaxAttempts);
 
-            var newGame = new Codemaker();
-            var newSecretCode = newGame.SecretCode();
-            var newBrakeAttempt = new Codebraker();
-            var newInput = newBrakeAttempt.UserInput();
-            var newFeedback = new Feedback();
-            var playGame = newFeedback.GuessFeedback(newSecretCode, newInput);
-            var playedGames = 1;
-
-            while (playGame && playedGames < 10)
-            {
-                playedGames++;
-                newInput = newBrakeAttempt.UserInput();
-                playGame = newFeedback.GuessFeedback(newSecretCode, newInput);
-            }
-
-            if (playedGames >= 10)
-            {
-                Console.WriteLine($"You've runned out of attempts. the code is: {string.Join( "", newSecretCode.ToArray())}");
-                Console.WriteLine("GAME OVER");
-            }
+        if (playedGames > GameRules.MaxAttempts)
+        {
+            Console.WriteLine($"You've runned out of attempts. the code is: {newSecretCode.ItemsToString()}");
+            Console.WriteLine("GAME OVER");
         }
     }
 }
