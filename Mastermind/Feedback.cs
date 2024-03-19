@@ -7,7 +7,7 @@ public class Feedback
     private const char CorrectIndx = 'V';
     private const char DefaultCh = '.';
 
-    public bool GuessFeedback(List<int> code, List<int> input)
+    public bool GuessFeedback(List<string> code, List<string> input)
     {
         if (input.ItemsToString() == code.ItemsToString())
         {
@@ -27,7 +27,8 @@ public class Feedback
             {
                 feedback.Add(CorrectIndx);
             }
-            else if (input[i] != code[i] && code.Contains(input[i]) && matchingIntCode[input[i] - 1] >= matchingIntInput[input[i] - 1])
+            else if (code.Contains(input[i]) &&
+                matchingIntCode[Int32.Parse(input[i]) - 1] >= matchingIntInput[Int32.Parse(input[i]) - 1])
             {
                 feedback.Add(CorrectVal);
             }

@@ -2,7 +2,7 @@ namespace Mastermind;
 
 public class Codebraker
 {
-    public List<int> GetUserInput()
+    public List<string> GetUserInput()
     {
         Console.WriteLine($"Enter a {GameRules.CodeLength}-digit code using numbers from 1 to 6, numbers may be repeated:");
 
@@ -12,16 +12,6 @@ public class Codebraker
         userInputStr = userInputStr.PadRight(GameRules.CodeLength, '_');
         userInputStr = userInputStr[..GameRules.CodeLength];
 
-        return userInputStr
-            .Select(ch =>
-            {
-                if (int.TryParse(ch.ToString(), out var digit))
-                {
-                    return digit;
-                }
-
-                return -1;
-            })
-            .ToList();
+        return userInputStr.Select(ch => ch.ToString()).ToList();
     }
 }
