@@ -6,19 +6,17 @@ public class Feedback
     private const char CorrectVal = 'X';
     private const char DefaultCh = '.';
 
-    public bool GuessFeedback(List<string> code, List<string> input)
+    public bool GuessFeedback(List<string> code, List<string> input, out int correctValNum, out int correctIndxNum, out List<char> inputFeedback)
     {
+        correctIndxNum = 0;
+        correctValNum = 0;
+        var codeFeedback = new List<string>(code);
+        inputFeedback = new List<char>();
+        
         if (input.ItemsToString() == code.ItemsToString())
         {
-            Console.WriteLine("Congratulations! You won!");
-
             return false;
         }
-
-        var correctIndxNum = 0;
-        var correctValNum = 0;
-        var codeFeedback = new List<string>(code);
-        var inputFeedback = new List<char>();
 
         for (var i = 0; i < input.Count; i++)
         {
@@ -40,8 +38,6 @@ public class Feedback
         inputFeedback.AddRange(Enumerable.Repeat(CorrectIndx, correctIndxNum));
         inputFeedback.AddRange(Enumerable.Repeat(CorrectVal, correctValNum - correctIndxNum));
         inputFeedback.AddRange(Enumerable.Repeat(DefaultCh, GameRules.CodeLength - correctValNum));
-
-        Console.WriteLine(inputFeedback.ItemsToString());
 
         return true;
     }
