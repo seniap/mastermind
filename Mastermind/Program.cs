@@ -25,7 +25,8 @@ class Program
         
         do
         {
-            Console.WriteLine($"Enter a {GameRules.CodeLength}-digit code using numbers from 1 to 6, numbers may be repeated:");
+            Console.WriteLine($"Enter a {GameRules.CodeLength}-digit code using numbers from 1 to 6, numbers may be repeated.");
+            Console.WriteLine($"Number of attempts left: {GameRules.MaxAttempts - playedGames}");
             Console.WriteLine();
             var newInput = newBrakeAttempt.GetUserInput();
             playGame = newFeedback.GuessFeedback(newSecretCode, newInput, out int correctValNum, out int correctIndxNum, out List<char> inputFeedback);
@@ -46,9 +47,9 @@ class Program
             Console.WriteLine("------------------------------");
             playedGames++;
         }
-        while (playGame && playedGames <= GameRules.MaxAttempts);
+        while (playGame && playedGames < GameRules.MaxAttempts);
 
-        if (playedGames > GameRules.MaxAttempts)
+        if (playedGames >= GameRules.MaxAttempts)
         {
             Console.WriteLine($"You've runned out of attempts. The code is: {newSecretCode.ItemsToString()}");
             Console.WriteLine("GAME OVER");
