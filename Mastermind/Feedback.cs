@@ -2,9 +2,8 @@ namespace Mastermind;
 
 public class Feedback
 {
-    private readonly MatchCounter _matchCounter = new();
-    private const char CorrectVal = 'X';
     private const char CorrectIndx = 'V';
+    private const char CorrectVal = 'X';
     private const char DefaultCh = '.';
 
     public bool GuessFeedback(List<string> code, List<string> input)
@@ -16,39 +15,34 @@ public class Feedback
             return false;
         }
 
-        var matchingIntCode = _matchCounter.CountMatches(code);
-        var matchingIntInput = _matchCounter.CountMatches(input);
-
-        var feedback = new List<char>();
+        var correctIndxNum = 0;
+        var correctValNum = 0;
+        var codeFeedback = new List<string>(code);
+        var inputFeedback = new List<char>();
 
         for (var i = 0; i < input.Count; i++)
         {
             if (input[i] == code[i])
             {
-                feedback.Add(CorrectIndx);
-            }
-            else if (code.Contains(input[i]) &&
-                matchingIntCode[Int32.Parse(input[i]) - 1] >= matchingIntInput[Int32.Parse(input[i]) - 1])
-            {
-                feedback.Add(CorrectVal);
-            }
-            else
-            {
-                feedback.Add(DefaultCh);
+                correctIndxNum++;
             }
         }
 
-        var shuffledFeedback = ShuffleFeedback(feedback);
+        for (var i = 0; i < input.Count; i++)
+        {
+            if (codeFeedback.Contains(input[i]))
+            {
+                codeFeedback.Remove(input[i]);
+                correctValNum++;
+            }
+        }
 
-        var shuffledFeedbackStr = shuffledFeedback.ItemsToString();
+        inputFeedback.AddRange(Enumerable.Repeat(CorrectIndx, correctIndxNum));
+        inputFeedback.AddRange(Enumerable.Repeat(CorrectVal, correctValNum - correctIndxNum));
+        inputFeedback.AddRange(Enumerable.Repeat(DefaultCh, GameRules.CodeLength - correctValNum));
 
-        Console.WriteLine(shuffledFeedbackStr);
+        Console.WriteLine(inputFeedback.ItemsToString());
 
         return true;
-    }
-
-    private List<char> ShuffleFeedback(List<char> items)
-    {
-        return items.OrderBy(x => Random.Shared.Next()).ToList();
     }
 }
