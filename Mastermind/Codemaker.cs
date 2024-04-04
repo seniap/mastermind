@@ -4,7 +4,7 @@ public class Codemaker
 {
     private readonly List<string> _secretCodeSymbols = ["1", "2", "3", "4", "5", "6"];
 
-    public List<string> SecretCode()
+    public List<string> CreateSecretCode()
     {
         var secretCode = new List<string>();
         var random = new Random();
