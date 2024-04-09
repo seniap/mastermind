@@ -4,9 +4,8 @@ public class Codebraker
 {
     public List<string> GetUserInput()
     {
-        var userInputStr = Console.ReadLine() ?? string.Empty;
+        var userInputStr = CodeHelperExtensions.TakeUserInput();
 
-        userInputStr = userInputStr.Trim();
         userInputStr = userInputStr.PadRight(GameRules.CodeLength, '_');
         userInputStr = userInputStr[..GameRules.CodeLength];
 

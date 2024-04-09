@@ -2,10 +2,10 @@ namespace Mastermind;
 
 public class TheGame
 {
-    private Messenger _messenger;
-    private Codemaker _codeMaker;
-    private Codebraker _codeBreaker;
-    private Feedback _feedback;
+    private readonly Messenger _messenger;
+    private readonly Codemaker _codeMaker;
+    private readonly Codebraker _codeBreaker;
+    private readonly Feedback _feedback;
     private List<string> _secretCode;
 
     private int _playedGames;
@@ -34,7 +34,6 @@ public class TheGame
     /// </summary>
     public void AskPlayer()
     {
-        _playedGames++;
         _messenger.AskForInput(_playedGames);
 
         var userInput = _codeBreaker.GetUserInput();
@@ -46,23 +45,35 @@ public class TheGame
         {
             _messenger.SayWin();
 
-            // TODO: Ask if player wants to play again
-            StartGame();
+            PlayAgain();
             return;
         }
 
         _messenger.SayFeedback(correctValNum, correctIndxNum, inputFeedback);
 
+        _playedGames++;
+
         if (!IsPlaying())
         {
             _messenger.SayLose(_secretCode);
 
-            // TODO: Ask if player wants to play again
+            PlayAgain();
         }
     }
 
     public bool IsPlaying()
     {
-        return _playedGames <= GameRules.MaxAttempts;
+        return _playedGames < GameRules.MaxAttempts;
+    }
+
+    public void PlayAgain()
+    {
+        _messenger.AskToPlayAgain();
+        var userAnswer = CodeHelperExtensions.TakeUserInput();
+
+        if (string.Equals(userAnswer, "Y", StringComparison.InvariantCultureIgnoreCase))
+        {
+            StartGame();
+        }
     }
 }

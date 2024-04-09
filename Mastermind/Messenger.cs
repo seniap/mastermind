@@ -1,8 +1,3 @@
-
-
-
-
-
 namespace Mastermind;
 
 public class Messenger
@@ -15,11 +10,11 @@ public class Messenger
         Console.WriteLine("==============================");
         Console.WriteLine("WELCOME TO MASTERMIND GAME!");
         Console.WriteLine("==============================");
-        Console.WriteLine();
     }
 
     public void StartGame() 
     {
+        Console.WriteLine();
         Console.WriteLine($"Try to break my code: {string.Empty.PadLeft(GameRules.CodeLength, '*')}");
         Console.WriteLine();
     }
@@ -54,5 +49,11 @@ public class Messenger
     {
         Console.WriteLine($"You've runned out of attempts. The code is: {newSecretCode.ItemsToString()}");
         Console.WriteLine("GAME OVER");
+    }
+
+    internal void AskToPlayAgain()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Would you like to play again? (Y/N)");
     }
 }

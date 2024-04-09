@@ -7,4 +7,10 @@ public static class CodeHelperExtensions
     {
         return string.Join("", items);
     }
+
+    public static string TakeUserInput()
+    {
+        var userInput = Console.ReadLine() ?? string.Empty;
+        return userInput.Trim();
+    }
 }
