@@ -1,22 +1,25 @@
+using Mastermind.Interfaces;
+
 namespace Mastermind;
 
-public class TheGame
+public class TheGame : ITheGame
 {
-    private readonly Messenger _messenger;
-    private readonly Codemaker _codeMaker;
-    private readonly Codebraker _codeBreaker;
-    private readonly Feedback _feedback;
+    private readonly ICodemaker _codeMaker;
+    private readonly ICodebraker _codeBreaker;
+    private readonly IFeedback _feedback;
+    private readonly IMessenger _messenger;
+
     private List<string> _secretCode;
 
     private int _playedGames;
     // private bool _isKeepPlaying;
 
-    public TheGame()
+    public TheGame(ICodemaker codeMaker, ICodebraker codeBreaker, IFeedback feedback, IMessenger messenger)
     {
-        _messenger = new Messenger();
-        _codeMaker = new Codemaker();
-        _codeBreaker = new Codebraker();
-        _feedback = new Feedback();
+        _codeMaker = codeMaker;
+        _codeBreaker = codeBreaker;
+        _feedback = feedback;
+        _messenger = messenger;
 
         _messenger.GreetPlayer();
     }
@@ -66,7 +69,7 @@ public class TheGame
         return _playedGames < GameRules.MaxAttempts;
     }
 
-    public void PlayAgain()
+    private void PlayAgain()
     {
         _messenger.AskToPlayAgain();
         var userAnswer = CodeHelperExtensions.TakeUserInput();

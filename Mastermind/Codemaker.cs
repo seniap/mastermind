@@ -1,6 +1,8 @@
+using Mastermind.Interfaces;
+
 namespace Mastermind;
 
-public class Codemaker
+public class Codemaker : ICodemaker
 {
     private readonly List<string> _secretCodeSymbols = ["1", "2", "3", "4", "5", "6"];
 

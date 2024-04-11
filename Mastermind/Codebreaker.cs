@@ -1,6 +1,8 @@
+using Mastermind.Interfaces;
+
 namespace Mastermind;
 
-public class Codebraker
+public class Codebraker : ICodebraker
 {
     public List<string> GetUserInput()
     {

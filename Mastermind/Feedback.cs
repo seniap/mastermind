@@ -1,6 +1,8 @@
+using Mastermind.Interfaces;
+
 namespace Mastermind;
 
-public class Feedback
+public class Feedback : IFeedback
 {
     private const char CorrectIndx = 'V';
     private const char CorrectVal = 'X';

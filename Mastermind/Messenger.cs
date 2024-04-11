@@ -1,8 +1,10 @@
+using Mastermind.Interfaces;
+
 namespace Mastermind;
 
-public class Messenger
+public class Messenger : IMessenger
 {
-    internal void GreetPlayer()
+    public void GreetPlayer()
     {
         Console.WriteLine("      \\");
         Console.WriteLine("*//////{<>==================-");
@@ -19,20 +21,20 @@ public class Messenger
         Console.WriteLine();
     }
 
-    internal void AskForInput(int playedGames)
+    public void AskForInput(int playedGames)
     {
         Console.WriteLine($"Enter a {GameRules.CodeLength}-digit code using numbers from 1 to 6, numbers may be repeated.");
         Console.WriteLine($"Number of attempts left: {GameRules.MaxAttempts - playedGames}");
         Console.WriteLine();
     }
 
-    internal void SayWin()
+    public void SayWin()
     {
         Console.WriteLine("------------------------------");
         Console.WriteLine("CONGRATULATIONS! YOU WON!");
     }
 
-    internal void SayFeedback(int correctValNum, int correctIndxNum, List<char> inputFeedback)
+    public void SayFeedback(int correctValNum, int correctIndxNum, List<char> inputFeedback)
     {
         Console.WriteLine();
         Console.WriteLine($"Numbers guessed correctly: {correctValNum} out of {GameRules.CodeLength}. Numbers in correct position: {correctIndxNum}.");
@@ -45,13 +47,13 @@ public class Messenger
         Console.WriteLine("------------------------------");
     }
 
-    internal void SayLose(List<string> newSecretCode)
+    public void SayLose(List<string> newSecretCode)
     {
         Console.WriteLine($"You've runned out of attempts. The code is: {newSecretCode.ItemsToString()}");
         Console.WriteLine("GAME OVER");
     }
 
-    internal void AskToPlayAgain()
+    public void AskToPlayAgain()
     {
         Console.WriteLine();
         Console.WriteLine("Would you like to play again? (Y/N)");
