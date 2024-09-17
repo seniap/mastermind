@@ -4,7 +4,7 @@ class Program
 {
     static void Main()
     {
-        var theGame = new TheGame();
+        var theGame = new TheGame(new Codemaker(), new Codebraker(), new Feedback(), new Messenger());
 
         theGame.StartGame();
         
